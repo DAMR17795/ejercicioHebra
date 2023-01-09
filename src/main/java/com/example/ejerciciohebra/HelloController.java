@@ -10,6 +10,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 
+import java.util.ArrayList;
 import java.util.concurrent.Executors;
 
 public class HelloController {
@@ -74,21 +75,34 @@ public class HelloController {
 
     @FXML
     public void metodoArrastrar(Event event) {
-        slider1.valueProperty().addListener(numberChangeListener);
-        cp1.setPriority((int) slider1.getValue());
+        try {
+            slider1.valueProperty().addListener(numberChangeListener);
+            cp1.setPriority((int) slider1.getValue());
+        } catch (Exception e) {
+
+        }
+
     }
 
     @FXML
     public void metodoArrastrar2(Event event) {
-        slider2.valueProperty().addListener(numberChangeListener2);
-        cp2.setPriority((int) slider2.getValue());
+        try {
+            slider2.valueProperty().addListener(numberChangeListener2);
+            cp2.setPriority((int) slider2.getValue());
+        } catch (Exception e) {
+
+        }
 
     }
 
     @FXML
     public void metodoArrastrar3(Event event) {
-        slider3.valueProperty().addListener(numberChangeListener3);
-        cp3.setPriority((int) slider3.getValue());
+        try {
+            slider3.valueProperty().addListener(numberChangeListener3);
+            cp3.setPriority((int) slider3.getValue());
+        } catch (Exception e) {
+
+        }
     }
 
     public void initialize() {
@@ -103,24 +117,40 @@ public class HelloController {
 
     }
 
+    public void terminar(ArrayList<CalculaPrimos> cp) {
+        for (int i=0; i<cp.size(); i ++) {
+            cp.get(i).interrupt();
+        }
+    }
+
     @FXML
     public void presionarBoton(Event event) {
         cp1 = new CalculaPrimos(1, 50000, progressBar1, tvResultado, "Hilo 1", tvHilo1);
         cp2 = new CalculaPrimos(1, 50000, progressBar2, tvResultado, "Hilo 2", tvHilo2);
         cp3 = new CalculaPrimos(1, 50000, progressBar3, tvResultado, "Hilo 3", tvHilo3);
 
+        ArrayList<CalculaPrimos> arrayPrimos = new ArrayList<>();
+        arrayPrimos.add(cp1);
+        arrayPrimos.add(cp2);
+        arrayPrimos.add(cp3);
+
         cp1.start();
         cp2.start();
         cp3.start();
 
-        if (progressBar1.getProgress() == 1.0 && progressBar2.getProgress() < 1.0 && progressBar3.getProgress() < 1.0) {
-            tvResultado.setText("Hilo 1");
+        if (tvHilo1.equals("Hilo 1:100")) {
+            tvResultado.setText("Ha ganado el Hilo 1");
+            terminar(arrayPrimos);
         }
-        if (progressBar1.getProgress() < 1.0 && progressBar2.getProgress() == 1.0 && progressBar3.getProgress() < 1.0) {
-            tvResultado.setText("Hilo 2");
+
+        if (tvHilo2.equals("Hilo 2:100")) {
+            tvResultado.setText("Ha ganado el Hilo 2");
+            terminar(arrayPrimos);
         }
-        if (progressBar1.getProgress() < 1.0 && progressBar2.getProgress() < 1.0 && progressBar3.getProgress() == 1.0) {
-            tvResultado.setText("Hilo 3");
+
+        if (tvHilo3.equals("Hilo 3:100")) {
+            tvResultado.setText("Ha ganado el Hilo 3");
+            terminar(arrayPrimos);
         }
 
     }

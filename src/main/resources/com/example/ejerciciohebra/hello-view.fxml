@@ -27,6 +27,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Button fx:id="boton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#presionarBoton" prefHeight="53.0" prefWidth="210.0" text="Comenzar Carrera" GridPane.columnSpan="3" />
@@ -42,7 +43,7 @@
             <Text fx:id="txtSlider3" strokeType="OUTSIDE" strokeWidth="0.0" text="Prioridad:" GridPane.columnIndex="2" GridPane.rowIndex="5" />
             <Slider fx:id="slider3" blockIncrement="5.0" majorTickUnit="1.0" max="10.0" min="1.0" minorTickCount="0" onDragDetected="#metodoArrastrar3" showTickLabels="true" showTickMarks="true" value="5.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <ProgressBar fx:id="progressBar3" maxWidth="1.7976931348623157E308" prefWidth="200.0" progress="0.0" GridPane.columnSpan="3" GridPane.rowIndex="6" />
-            <Label fx:id="tvResultado" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+            <Label fx:id="tvResultado" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
             <Label fx:id="tvHilo1" text="Label" GridPane.rowIndex="7" />
             <Label fx:id="tvHilo2" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
             <Label fx:id="tvHilo3" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="7" />

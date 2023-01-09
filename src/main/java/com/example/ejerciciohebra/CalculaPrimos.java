@@ -55,7 +55,10 @@ public class CalculaPrimos extends Thread {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        labelPorcentaje.setText(String.valueOf(contador));
+                        labelPorcentaje.setText(name + ": " +  String.valueOf(contador));
+                        if (contador==100){
+                            System.out.println("Ha ganado el " + name);
+                        }
                     }
                 });
                 for (int i=0; i<= max; i++) {
@@ -71,7 +74,7 @@ public class CalculaPrimos extends Thread {
             if (contador==100) {
                 ganador.setText("Ganador: " + name);
                 pararHilo();
-                //interrupt();
+                interrupt();
             }
 
         } catch (Exception e) {
