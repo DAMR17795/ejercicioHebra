@@ -56,9 +56,6 @@ public class CalculaPrimos extends Thread {
                     @Override
                     public void run() {
                         labelPorcentaje.setText(name + ": " +  String.valueOf(contador));
-                        if (contador==100){
-                            System.out.println("Ha ganado el " + name);
-                        }
                     }
                 });
                 for (int i=0; i<= max; i++) {
@@ -66,16 +63,22 @@ public class CalculaPrimos extends Thread {
                         //System.out.println("El numero " + i + " es primo");
                     }
                 }
-                System.out.println("Contador " + name + ": " + a);
+                //System.out.println("Contador " + name + ": " + a);
                 barra1.setProgress(barra1.getProgress()+0.01);
                 contador++;
             }
-            Thread.sleep(1000);
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    HelloController.resultado(name, ganador);
+                }
+            });
+            /*Thread.sleep(1000);
             if (contador==100) {
                 ganador.setText("Ganador: " + name);
                 pararHilo();
                 interrupt();
-            }
+            }*/
 
         } catch (Exception e) {
             System.out.println(name + " Interrumpido");

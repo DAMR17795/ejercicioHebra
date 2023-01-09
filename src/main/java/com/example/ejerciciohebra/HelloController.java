@@ -7,11 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
-import java.util.concurrent.Executors;
 
 public class HelloController {
 
@@ -122,36 +120,26 @@ public class HelloController {
             cp.get(i).interrupt();
         }
     }
+    static boolean b= false;
+    public static void resultado(String nombre, Label resultado) {
+        if (b==false) {
+            System.out.println(nombre + " ha ganado");
+            resultado.setText(nombre + " ha ganado");
+            b=true;
+        }
+    }
 
     @FXML
     public void presionarBoton(Event event) {
+        tvResultado.setText("");
+        b=false;
         cp1 = new CalculaPrimos(1, 50000, progressBar1, tvResultado, "Hilo 1", tvHilo1);
         cp2 = new CalculaPrimos(1, 50000, progressBar2, tvResultado, "Hilo 2", tvHilo2);
         cp3 = new CalculaPrimos(1, 50000, progressBar3, tvResultado, "Hilo 3", tvHilo3);
 
-        ArrayList<CalculaPrimos> arrayPrimos = new ArrayList<>();
-        arrayPrimos.add(cp1);
-        arrayPrimos.add(cp2);
-        arrayPrimos.add(cp3);
-
         cp1.start();
         cp2.start();
         cp3.start();
-
-        if (tvHilo1.equals("Hilo 1:100")) {
-            tvResultado.setText("Ha ganado el Hilo 1");
-            terminar(arrayPrimos);
-        }
-
-        if (tvHilo2.equals("Hilo 2:100")) {
-            tvResultado.setText("Ha ganado el Hilo 2");
-            terminar(arrayPrimos);
-        }
-
-        if (tvHilo3.equals("Hilo 3:100")) {
-            tvResultado.setText("Ha ganado el Hilo 3");
-            terminar(arrayPrimos);
-        }
 
     }
 }
