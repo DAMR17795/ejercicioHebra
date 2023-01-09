@@ -39,6 +39,9 @@ public class HelloController {
     @FXML
     private ProgressBar progressBar3;
 
+    @FXML
+    private Label tvResultado;
+
     //Incremento de 1 en 1
     final ChangeListener<Number> numberChangeListener = (obs, old, val) -> {
         final double roundedValue = Math.floor(val.doubleValue() / 1.0) * 1.0;
@@ -58,6 +61,15 @@ public class HelloController {
         txtSlider3.setText("Prioridad: " + (roundedValue));
     };
 
+    final ChangeListener<Label> resultadoChangeListener = (observableValue, text, t1) -> {
+        tvResultado.setText(String.valueOf(progressBar1.getProgress()));
+    };
+    @FXML
+    private Label tvHilo1;
+    @FXML
+    private Label tvHilo2;
+    @FXML
+    private Label tvHilo3;
 
 
     @FXML
@@ -83,23 +95,33 @@ public class HelloController {
         txtSlider1.setText("Prioridad: " + (slider1.getValue()));
         txtSlider2.setText("Prioridad: " + (slider2.getValue()));
         txtSlider3.setText("Prioridad: " + (slider3.getValue()));
+
+    }
+
+    public void ganador() {
+        tvResultado.setText(String.valueOf(progressBar1.getProgress()));
+
     }
 
     @FXML
     public void presionarBoton(Event event) {
-        cp1 = new CalculaPrimos(1, 100000, progressBar1);
-        cp2 = new CalculaPrimos(1, 100000, progressBar2);
-        cp3 = new CalculaPrimos(1, 100000, progressBar3);
+        cp1 = new CalculaPrimos(1, 50000, progressBar1, tvResultado, "Hilo 1", tvHilo1);
+        cp2 = new CalculaPrimos(1, 50000, progressBar2, tvResultado, "Hilo 2", tvHilo2);
+        cp3 = new CalculaPrimos(1, 50000, progressBar3, tvResultado, "Hilo 3", tvHilo3);
 
         cp1.start();
         cp2.start();
         cp3.start();
 
-        cp1.pararHilo();
-        cp2.pararHilo();
-        cp3.pararHilo();
-
-
+        if (progressBar1.getProgress() == 1.0 && progressBar2.getProgress() < 1.0 && progressBar3.getProgress() < 1.0) {
+            tvResultado.setText("Hilo 1");
+        }
+        if (progressBar1.getProgress() < 1.0 && progressBar2.getProgress() == 1.0 && progressBar3.getProgress() < 1.0) {
+            tvResultado.setText("Hilo 2");
+        }
+        if (progressBar1.getProgress() < 1.0 && progressBar2.getProgress() < 1.0 && progressBar3.getProgress() == 1.0) {
+            tvResultado.setText("Hilo 3");
+        }
 
     }
 }
